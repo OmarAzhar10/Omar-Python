@@ -1,0 +1,46 @@
+# import os
+
+# with open("sample.txt", "w" ) as file:
+#     file.write("hello this is test file.\n")
+#     file.write("we are learning file handeling in py.\n")
+# print("data written successfully")
+
+
+
+# text = "Python is fun & easy"
+# with open("words.txt", "w" ) as file:
+#     words = text.split()
+#     print(words)
+#     for word in words:
+#         file.write(word + "\n")
+#         print("Words written sucessfully")
+
+
+
+
+import os
+
+try:
+    with open("newfile.txt", "x") as file:
+        file.write("This is new file")
+        print("file created succsessfully")
+
+except FileExistsError:
+    print("File already exists")
+
+
+filename = "sample.txt"
+if os.path.exists(filename):
+    print(f"file exists")
+else:
+    print(f"file does not exists")
+
+
+filename = "data.txt"
+if not os.path.exists(filename):
+   with open(filename, "w") as file:
+       file.write("This file is just created ")
+else:
+    print(f"file exists")
+
+
