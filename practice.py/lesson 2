@@ -1,0 +1,76 @@
+# from collections import deque
+
+# def maxCandies(status, candies, keys, containedBoxes, initialBoxes):
+#     total_candies = 0
+#     n = len(status)
+#     queue = deque(initialBoxes)
+#     has_key = set()
+#     unopened_boxes = set()
+
+#     while queue:
+#         box = queue.popleft()
+        
+#         if status[box] == 0 and box not in has_key:
+            
+#             unopened_boxes.add(box)
+#             continue
+
+        
+#         total_candies += candies[box]
+
+        
+#         for key in keys[box]:
+#             has_key.add(key)
+#             if key in unopened_boxes:
+#                 queue.append(key)
+#                 unopened_boxes.remove(key)
+
+        
+#         for new_box in containedBoxes[box]:
+#             queue.append(new_box)
+
+#     return total_candies
+
+
+# status = [1,0,1,0]
+# candies = [7,5,4,100]
+# keys = [[],[],[1],[]]
+# containedBoxes = [[1,2],[3],[],[]]
+# initialBoxes = [0]
+
+# print(maxCandies(status, candies, keys, containedBoxes, initialBoxes))
+
+
+
+
+
+def isMatch(s: str, p: str) -> bool:
+    
+    m, n = len(s), len(p)
+    dp = [[False] * (n + 1) for _ in range(m + 1)]
+    
+    
+    dp[0][0] = True
+
+    
+    for j in range(1, n + 1):
+        if p[j - 1] == '*':
+            dp[0][j] = dp[0][j - 1]
+
+    
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if p[j - 1] == '*':
+               
+                dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+            elif p[j - 1] == '?' or s[i - 1] == p[j - 1]:
+                
+                dp[i][j] = dp[i - 1][j - 1]
+
+    return dp[m][n]
+
+
+print(isMatch("aa", "a"))    # Output: False
+print(isMatch("aa", "*"))    # Output: True
+print(isMatch("cb", "?a"))   # Output: False
+print(isMatch("adceb", "*a*b"))  # Output: True
